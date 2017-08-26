@@ -23,10 +23,20 @@ public:
         head = NULL;
     }
 
+    void printEdges(listNode * head) {
+        listNode * current = head;
+        while(current != NULL) {
+            cout << " -> " << current -> dest << " ";
+            current = current -> next;
+        }
+        cout << endl;
+    }
+
     void printGraph() {
         vertexNode * current = head;
         while(current != NULL) {
-            cout << current -> vertex << endl;
+            cout << "V: " << current -> vertex;
+            printEdges(current -> listHead);
             current = current -> next;
         }
     }
@@ -76,7 +86,7 @@ public:
         newNode = newListNode(startV);
         originVertex = findVertex(endV);
         newNode -> next = originVertex -> listHead;
-        originVertex -> listHead = newNode;        
+        originVertex -> listHead = newNode;
     }
 };
 
@@ -86,5 +96,6 @@ int main(int argc, char const *argv[]) {
     G.addNewVertex(1);
     G.addNewVertex(2);
     G.addNewEdge(1, 2);
+    G.printGraph();
     return 0;
 }
