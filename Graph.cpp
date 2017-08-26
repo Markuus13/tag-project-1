@@ -26,7 +26,7 @@ public:
     void printEdges(listNode * head) {
         listNode * current = head;
         while(current != NULL) {
-            cout << " -> " << current -> dest << " ";
+            cout << " -> " << current -> dest;
             current = current -> next;
         }
         cout << endl;
@@ -95,7 +95,15 @@ int main(int argc, char const *argv[]) {
     Graph G;
     G.addNewVertex(1);
     G.addNewVertex(2);
+    G.addNewVertex(3);
+    G.addNewVertex(4);
+    G.addNewVertex(5);
     G.addNewEdge(1, 2);
+    G.addNewEdge(1, 3);
+    G.addNewEdge(2, 4);
+    G.addNewEdge(3, 4);
+    G.addNewEdge(4, 5);
+
     G.printGraph();
     return 0;
 }
