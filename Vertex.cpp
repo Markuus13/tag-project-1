@@ -1,6 +1,9 @@
+// ++ -std=c++11 -Wall -pedantic Vertex.cpp -o vertex-main
+
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -61,6 +64,18 @@ class Graph {
     }
 };
 
+vector<string> split(string str, char delimiter) {
+  vector<string> internal;
+  stringstream ss(str); // Turn the string into a stream.
+  string token;
+
+  while(getline(ss, token, delimiter)) {
+    internal.push_back(token);
+  }
+
+  return internal;
+}
+
 Graph create_graph_from_file() {
   Graph graph;
   ifstream myfile;
@@ -76,6 +91,10 @@ Graph create_graph_from_file() {
               && getline(myfile, friend_registrations) ) {
         Vertex student(registration, name);
         graph.addVertex(student);
+        vector<string> resultado = split(friend_registrations, ',');
+        for (string s: resultado) {
+          cout << s << endl;
+        }
     }
 
     myfile.close();
