@@ -88,6 +88,16 @@ public:
         newNode -> next = originVertex -> listHead;
         originVertex -> listHead = newNode;
     }
+
+    int countListNodes(listNode * head) {
+        listNode * current = head;
+        int nodes = 0;
+        while(current != NULL) {
+            nodes++;
+            current = current -> next;
+        }
+        return nodes;
+    }
 };
 
 int main(int argc, char const *argv[]) {
@@ -104,6 +114,8 @@ int main(int argc, char const *argv[]) {
     G.addNewEdge(3, 4);
     G.addNewEdge(4, 5);
 
-    G.printGraph();
+    vertexNode * v = G.findVertex(3);
+    int total = G.countListNodes(v -> listHead);
+    cout << total << endl;
     return 0;
 }
