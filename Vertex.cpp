@@ -4,6 +4,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -14,6 +15,8 @@ class Vertex {
     vector<Vertex> adjacencyVertices;
 
   public:
+    Vertex() {}
+
     Vertex(string registration, string name) {
       this->registration = registration;
       this->name = name;
@@ -40,6 +43,7 @@ class Vertex {
     }
 
     void addAdjacencyVertex(Vertex vertex) {
+      cout << vertex.getName() << endl;
       this->adjacencyVertices.push_back(vertex);
     }
 };
@@ -56,10 +60,24 @@ class Graph {
       this->vertices.push_back(vertex);
     }
 
+    Vertex find_by_registration(string registration) {
+      for (Vertex vertex: this->vertices) {
+        if(vertex.getRegistration() == registration) {
+          return vertex;
+        }
+      }
+      return Vertex("9999999999", "LEOZIN DA MASSA");
+    }
+
     void formated_print() {
       for (Vertex vertex: this->vertices) {
-        cout << "Nome: " << vertex.getName() << " -> ";
-        cout << "Matrícula: " << vertex.getRegistration() << endl;
+        cout << "Nome: " << vertex.getName() << "|";
+        cout << "Matrícula: " << vertex.getRegistration() << "|";
+        cout << "Amigos: ";
+        for (Vertex friend_vertex :vertex.getAdjacencyVertices()) {
+          cout << friend_vertex.getName() << " ";
+        }
+        cout << endl;
       }
     }
 };
@@ -81,6 +99,8 @@ Graph create_graph_from_file() {
   ifstream myfile;
   myfile.open("teste.txt");
 
+  vector<vector<string>> friends_cache;
+
   if (myfile.is_open()) {
     string name;
     string registration;
@@ -91,16 +111,25 @@ Graph create_graph_from_file() {
               && getline(myfile, friend_registrations) ) {
         Vertex student(registration, name);
         graph.addVertex(student);
-        vector<string> resultado = split(friend_registrations, ',');
-        for (string s: resultado) {
-          cout << s << endl;
-        }
+
+        vector<string> friend_registrations_vector = split(friend_registrations, ',');
+        friends_cache.push_back(friend_registrations_vector);
+    }
+
+    int i = 0;
+    for (vector<string> row_friend: friends_cache) {
+      for (string friend_registration: row_friend) {
+        Vertex friend_vertex = graph.find_by_registration(friend_registration);
+        graph.getVertices()[i].addAdjacencyVertex(friend_vertex);
+      }
+      i++;
     }
 
     myfile.close();
   } else {
     cout << "Unable to open file.";
   }
+
   return graph;
 }
 
