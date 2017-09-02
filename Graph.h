@@ -10,4 +10,5 @@ public:
     void addVertex(Vertex vertex);
     Vertex findByRegistration(std::string registration);
     void formatedPrint();
+    void createVertices(std::string filename);
 };

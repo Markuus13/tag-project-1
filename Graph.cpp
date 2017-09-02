@@ -1,5 +1,6 @@
 #include "Vertex.h"
 #include "Graph.h"
+#include <fstream>
 
 using namespace std;
 
@@ -32,5 +33,25 @@ void Graph::formatedPrint() {
         cout << friend_vertex.getName() << " ";
       }
       cout << endl;
+    }
+}
+
+void Graph::createVertices(string filename) {
+    ifstream myfile;
+    myfile.open(filename);
+
+    if (myfile.is_open()) {
+        string name;
+        string registration;
+        string friend_registrations;
+
+        while ( getline(myfile, name, '|')
+                  && getline(myfile, registration, '|')
+                  && getline(myfile, friend_registrations) ) {
+            Vertex student(registration, name);
+            this->addVertex(student);
+        }
+    } else {
+        cout << "Unable to open file.";
     }
 }

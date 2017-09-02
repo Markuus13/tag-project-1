@@ -68,7 +68,8 @@ Graph createGraphFromFile() {
 }
 
 int main() {
-    Graph studentsGraph = createGraphFromFile();
+    Graph studentsGraph;
+    studentsGraph.createVertices("amigos.txt");
     studentsGraph.formatedPrint();
 
     return 0;
