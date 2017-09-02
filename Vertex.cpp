@@ -1,4 +1,4 @@
-/* g++ -std=c++11 -Wall -pedantic Vertex.cpp -o vertex-main */
+/* g++ -std=c++11 -Wall -pedantic Vertex.cpp -o main */
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -82,7 +82,7 @@ vector<string> split(string str, char delimiter) {
 Graph createGraphFromFile() {
     Graph graph;
     ifstream myfile;
-    myfile.open("teste.txt");
+    myfile.open("amigos.txt");
     vector<vector<string>> friends_cache;
 
     if (myfile.is_open()) {
