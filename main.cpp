@@ -1,4 +1,3 @@
-/* g++ -std=c++11 -Wall -pedantic Vertex.cpp -o main */
 #include <bits/stdc++.h>
 using namespace std;
 
