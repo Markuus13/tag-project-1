@@ -32,3 +32,10 @@ vector<Vertex> Vertex::getAdjVertices() {
 void Vertex::addAdjacencyVertex(Vertex vertex) {
     this->adjVertices.push_back(vertex);
 }
+
+int Vertex::numberOfEdges(Vertex vertex) {
+    int qtdVertex = 0;
+
+    for(Vertex v: vertex.getAdjVertices()) qtdVertex++;
+    return qtdVertex;
+}
