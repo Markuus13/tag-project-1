@@ -1,8 +1,20 @@
 #include "Vertex.h"
 #include "Graph.h"
 #include <fstream>
+#include <sstream>
 
 using namespace std;
+
+vector<string> split(string str, char delimiter) {
+    vector<string> internal;
+    stringstream ss(str);
+    string token;
+
+    while(getline(ss, token, delimiter)) {
+        internal.push_back(token);
+    }
+    return internal;
+}
 
 vector<Vertex> Graph::getVertices() {
     return this->vertices;
@@ -54,4 +66,32 @@ void Graph::createVertices(string filename) {
     } else {
         cout << "Unable to open file.";
     }
+    myfile.close();
+}
+
+void Graph::createAdjVertices(string filename) {
+    ifstream myfile;
+    myfile.open(filename);
+
+    if (myfile.is_open()) {
+        string name;
+        string registration;
+        string friendRegistrations;
+
+        while ( getline(myfile, name, '|')
+                  && getline(myfile, registration, '|')
+                  && getline(myfile, friendRegistrations) ) {
+
+                vector<string> vectorFriendRegs = split(friendRegistrations, ',');
+
+                for(string friendRegistration: vectorFriendRegs) {
+                    Vertex oneVertex = this->findByRegistration(registration);
+                    Vertex friendVertex = this->findByRegistration(friendRegistration);
+                    oneVertex.addAdjacencyVertex(friendVertex);
+                }
+        }
+    } else {
+        cout << "Unable to open file.";
+    }
+    myfile.close();
 }

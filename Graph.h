@@ -11,4 +11,5 @@ public:
     Vertex findByRegistration(std::string registration);
     void formatedPrint();
     void createVertices(std::string filename);
+    void createAdjVertices(std::string filename);
 };
