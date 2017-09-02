@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Vertex.h"
 
 using namespace std;

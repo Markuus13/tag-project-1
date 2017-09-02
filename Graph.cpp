@@ -24,13 +24,13 @@ void Graph::addVertex(Vertex vertex) {
     this->vertices.push_back(vertex);
 }
 
-Vertex Graph::findByRegistration(string registration) {
-    for (Vertex vertex: this->vertices) {
-        if(vertex.getRegistration() == registration) {
-            return vertex;
+Vertex* Graph::findByRegistration(string registration) {
+    for (size_t i = 0; i < vertices.size(); i++) {
+        if (vertices[i].getRegistration() == registration) {
+            return &vertices[i];
         }
     }
-    return Vertex();
+    return new Vertex();
 }
 
 void Graph::formatedPrint() {
@@ -41,8 +41,8 @@ void Graph::formatedPrint() {
 
       vector<Vertex> foo = vertex.getAdjVertices();
 
-      for (Vertex friend_vertex : foo) {
-        cout << friend_vertex.getName() << " ";
+      for (Vertex friendVertex : foo) {
+        cout << friendVertex.getName() << " ~ ";
       }
       cout << endl;
     }
@@ -84,12 +84,16 @@ void Graph::createAdjVertices(string filename) {
 
                 vector<string> vectorFriendRegs = split(friendRegistrations, ',');
 
+                Vertex* oneVertex = this->findByRegistration(registration);
+                // cout << oneVertex->getName() << endl;
                 for(string friendRegistration: vectorFriendRegs) {
-                    Vertex oneVertex = this->findByRegistration(registration);
-                    Vertex friendVertex = this->findByRegistration(friendRegistration);
-                    oneVertex.addAdjacencyVertex(friendVertex);
+                    // cout << oneVertex.getName() << " -> ";
+                    Vertex* friendVertex = this->findByRegistration(friendRegistration);
+                    // cout << friendVertex.getName() << endl;
+                    oneVertex->addAdjacencyVertex(*friendVertex);
                 }
         }
+
     } else {
         cout << "Unable to open file.";
     }

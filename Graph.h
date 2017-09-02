@@ -8,7 +8,7 @@ private:
 public:
     std::vector<Vertex> getVertices();
     void addVertex(Vertex vertex);
-    Vertex findByRegistration(std::string registration);
+    Vertex* findByRegistration(std::string registration);
     void formatedPrint();
     void createVertices(std::string filename);
     void createAdjVertices(std::string filename);
