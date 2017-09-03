@@ -33,9 +33,6 @@ void Vertex::addAdjacencyVertex(Vertex vertex) {
     this->adjVertices.push_back(vertex);
 }
 
-int Vertex::numberOfEdges(Vertex vertex) {
-    int qtdVertex = 0;
-
-    for(Vertex v: vertex.getAdjVertices()) qtdVertex++;
-    return qtdVertex;
+int Vertex::getDegree() const {
+    return this->adjVertices.size();
 }

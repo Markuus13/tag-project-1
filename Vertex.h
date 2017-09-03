@@ -17,5 +17,5 @@ public:
     void setName(std::string name);
     std::vector<Vertex> getAdjVertices();
     void addAdjacencyVertex(Vertex vertex);
-    int numberOfEdges(Vertex vertex);
+    int getDegree() const;
 };

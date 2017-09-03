@@ -9,7 +9,8 @@ public:
     std::vector<Vertex> getVertices();
     void addVertex(Vertex vertex);
     Vertex* findByRegistration(std::string registration);
-    void formatedPrint();
+    void printRegistrations();
     void createVertices(std::string filename);
     void createAdjVertices(std::string filename);
+    void sortDesc();
 };

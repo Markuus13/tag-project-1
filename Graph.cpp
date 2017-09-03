@@ -2,6 +2,7 @@
 #include "Graph.h"
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -33,18 +34,10 @@ Vertex* Graph::findByRegistration(string registration) {
     return new Vertex();
 }
 
-void Graph::formatedPrint() {
+void Graph::printRegistrations() {
     for (Vertex vertex: this->vertices) {
-      cout << "Nome: " << vertex.getName() << "|";
-      cout << "Matrícula: " << vertex.getRegistration() << "|";
-      cout << "Amigos: ";
-
-      vector<Vertex> foo = vertex.getAdjVertices();
-
-      for (Vertex friendVertex : foo) {
-        cout << friendVertex.getName() << " ~ ";
-      }
-      cout << endl;
+      cout << "Matrícula: " << vertex.getRegistration();
+      cout << " (Grau: " << vertex.getDegree() << ")" << endl;
     }
 }
 
@@ -85,11 +78,8 @@ void Graph::createAdjVertices(string filename) {
                 vector<string> vectorFriendRegs = split(friendRegistrations, ',');
 
                 Vertex* oneVertex = this->findByRegistration(registration);
-                // cout << oneVertex->getName() << endl;
                 for(string friendRegistration: vectorFriendRegs) {
-                    // cout << oneVertex.getName() << " -> ";
                     Vertex* friendVertex = this->findByRegistration(friendRegistration);
-                    // cout << friendVertex.getName() << endl;
                     oneVertex->addAdjacencyVertex(*friendVertex);
                 }
         }
@@ -98,4 +88,12 @@ void Graph::createAdjVertices(string filename) {
         cout << "Unable to open file.";
     }
     myfile.close();
+}
+
+bool order(const Vertex &v1, const Vertex &v2) {
+    return v1.getDegree() > v2.getDegree();
+}
+
+void Graph::sortDesc() {
+    sort(this->vertices.begin(), this->vertices.end(), order);
 }

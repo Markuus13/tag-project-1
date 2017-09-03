@@ -9,7 +9,8 @@ int main() {
 
     studentsGraph.createVertices("amigos_tag20172.txt");
     studentsGraph.createAdjVertices("amigos_tag20172.txt");
-    studentsGraph.formatedPrint();
+    studentsGraph.sortDesc();
+    studentsGraph.printRegistrations();
 
     return 0;
 }
