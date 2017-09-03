@@ -6,6 +6,14 @@
 
 using namespace std;
 
+vector<Vertex> Graph::getVertices() {
+    return this->vertices;
+}
+
+void Graph::addVertex(Vertex vertex) {
+    this->vertices.push_back(vertex);
+}
+
 vector<string> split(string str, char delimiter) {
     vector<string> internal;
     stringstream ss(str);
@@ -17,13 +25,6 @@ vector<string> split(string str, char delimiter) {
     return internal;
 }
 
-vector<Vertex> Graph::getVertices() {
-    return this->vertices;
-}
-
-void Graph::addVertex(Vertex vertex) {
-    this->vertices.push_back(vertex);
-}
 
 Vertex* Graph::findByRegistration(string registration) {
     for (size_t i = 0; i < vertices.size(); i++) {
@@ -35,6 +36,8 @@ Vertex* Graph::findByRegistration(string registration) {
 }
 
 void Graph::printRegistrations() {
+    cout << "Alunos (vértices) em ordem decrescente:" << endl;
+    cout << "=======================================" << endl;
     for (Vertex vertex: this->vertices) {
       cout << "Matrícula: " << vertex.getRegistration();
       cout << " (Grau: " << vertex.getDegree() << ")" << endl;
