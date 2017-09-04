@@ -1,3 +1,13 @@
+/**
+*   Universidade de Brasília
+*   Teoria e Aplicação de Grafos
+*   2017/2
+*
+*   Leonardo de Almeida 150135491
+*   Marcus Vinícius da Silva Borges 130032891
+*/
+
+
 #include "Vertex.h"
 #include "Graph.h"
 
@@ -22,12 +32,13 @@ void bronKerbosch(vector<Vertex> R, vector<Vertex> P, vector<Vertex> X) {
         return;
     }
 
-    for (Vertex v: P) {
-        R.push_back(v);
-        bronKerbosch(R, verticesIntersec(P, v.getAdjVertices()), verticesIntersec(X, v.getAdjVertices()));
-        // P.erase(remove(P.begin(), P.end(), v), P.end());
-        X.push_back(v);
+    for (size_t i = P.size() - 1; i > 0 ; i--) {
+        R.push_back(P[i]);
+        bronKerbosch(R, verticesIntersec(P, P[i].getAdjVertices()), verticesIntersec(X, P[i].getAdjVertices()));
+        X.push_back(P[i]);
+        P.pop_back();
     }
+    P.pop_back();
 }
 
 int main() {
@@ -40,11 +51,11 @@ int main() {
 
     cout << "----------------------------------" << endl;
 
-    // vector<Vertex> x = studentsGraph.getVertices();
-    // vector<Vertex> v;
-    // vector<Vertex> z;
-    //
-    // bronKerbosch(&v, &x, &z);
+    vector<Vertex> p = studentsGraph.getVertices();
+    vector<Vertex> r;
+    vector<Vertex> x;
+
+    bronKerbosch(r, p, x);
 
     return 0;
 }
